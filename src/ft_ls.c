@@ -15,17 +15,19 @@
 
 int     main(/*int argc, char **argv*/void)
 {
-    DIR             *dir;
-    struct dirent   *sd;
+	DIR             *dir;
+	struct dirent   *sd;
+	//struct stat		info;
 
-    dir = opendir(".");
-    if (dir == NULL)
-    {
-        exit(1);
-    }
-    while ((sd = readdir(dir)) != NULL)
-    {
-        printf("%s\n", sd->d_name);
-    }
-    return (0);
+	dir = opendir(".");
+	if (dir == NULL)
+	{
+		ft_putstr("");
+		exit(1);
+	}
+	while ((sd = readdir(dir)) != NULL)
+	{
+		ft_printf("%s\n", sd->d_name);
+	}
+	return (0);
 }

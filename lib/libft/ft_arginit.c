@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.h                                            :+:      :+:    :+:   */
+/*   ft_arginit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/17 12:14:06 by enikel            #+#    #+#             */
-/*   Updated: 2018/08/21 16:11:15 by enikel           ###   ########.fr       */
+/*   Created: 2018/07/19 14:24:47 by enikel            #+#    #+#             */
+/*   Updated: 2018/08/28 09:34:40 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LS_H
-# define FT_LS_H
+#include "libft.h"
 
-# define LS_OPTIONS "rRalt"
-
-# include "../lib/libft/libft.h"
-# include <stdlib.h>
-# include <dirent.h>
-# include <sys/stat.h>
-
-#endif
+void	ft_arginit(t_arg *arg)
+{
+	arg->width = 0;
+	arg->justify = 0;
+	arg->precision = 0;
+	arg->hash = 0;
+	arg->z_fill = ' ';
+	arg->sign = 0;
+	arg->ret = 0;
+	arg->spec = 0;
+	arg->index = 0;
+	arg->search = 0;
+	arg->h = 0;
+	arg->l = 0;
+	arg->z = 0;
+	arg->j = 0;
+}

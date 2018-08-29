@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enikel <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/17 14:14:27 by enikel            #+#    #+#             */
-/*   Updated: 2018/07/17 11:07:00 by enikel           ###   ########.fr       */
+/*   Updated: 2018/08/27 14:14:12 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,41 @@
 # define LIBFT_H
 
 # define BUFF_SIZE 32
+# define PRINT_SPEC "sSpdDioOuUxXcC\%\0"
+# define VALID_MOD_SPEC "scdDioOuUxX"
+# define PRINT_LMODS "lhjz"
+# define PRINT_FLAGS "-+#0 "
+# define ULONG_MAX	4294967296
 
+# include <stdarg.h>
+# include <wchar.h>
+# include <inttypes.h>
 # include <unistd.h>
 # include <string.h>
 # include <stdlib.h>
 # include <fcntl.h>
 
+typedef struct	s_arg
+{
+	int		width;
+	int		justify;
+	int		z_fill;
+	int		precision;
+	int		hash;
+	int		h;
+	int		j;
+	int		l;
+	int		z;
+	int		sign;
+	int		spec;
+	int		ret;
+	int		index;
+	int		search;
+}				t_arg;
+
 int			ft_atoi(const char *str);
 void		ft_bzero(void *s, size_t n);
-int			ft_intlen(long int n);
+int			ft_intlen(long long int n);
 int			ft_isalnum(int c);
 int			ft_isalpha(int c);
 int			ft_isascii(int c);
@@ -43,10 +69,11 @@ void		ft_putchar(char c);
 void		ft_putchar_fd(char c, int fd);
 void		ft_putendl(char const *s);
 void		ft_putendl_fd(char const *s, int fd);
-void		ft_putnbr(int n);
+void		ft_putnbr(long long int n);
 void		ft_putnbr_fd(int n, int fd);
 void		ft_putstr(char const *s);
 void		ft_putstr_fd(char const *s, int fd);
+void        ft_putwchar(wchar_t  c);
 char		*ft_strcat(char *s1, const char *s2);
 char		*ft_strchr(const char *s, int c);
 void		ft_strclr(char *s);
@@ -80,7 +107,33 @@ int			ft_toupper(int c);
 int			get_next_line(const int fd, char **line);
 
 char		*ft_itoa_base(long int n, int base);
+char		*ft_ulltoa_base(uintmax_t n, int base);
 void		ft_putnbr_base(long int n, int base);
 char		*ft_str_capitalize(char *str);
+
+void			ft_arginit(t_arg *arg);
+void			ft_arg_reset_mod(t_arg *arg);
+int				ft_arghandle(const char *format, va_list valist);
+t_arg			*ft_handle_h(t_arg *arg, va_list valist);
+t_arg			*ft_handle_hh(t_arg *arg, va_list valist);
+t_arg			*ft_handle_l(t_arg *arg, va_list valist);
+t_arg			*ft_handle_ll(t_arg *arg, va_list valist);
+t_arg			*ft_handle_j(t_arg *arg, va_list valist);
+t_arg			*ft_handle_z(t_arg *arg, va_list valist);
+t_arg			*ft_hspec(const char *format, t_arg *arg, va_list valist);
+int				ft_printf(const char *format, ...);
+int				ft_print_c(unsigned char c);
+int				ft_print_d(int num);
+int				ft_print_ld(long int num);
+int				ft_print_p(long p);
+int				ft_print_s(char *str);
+int				ft_print_o(unsigned int o);
+int				ft_print_lo(unsigned long o);
+int				ft_print_u(unsigned int u);
+int				ft_print_lu(unsigned long long u);
+int				ft_print_wchar(wint_t c);
+int				ft_print_wstr(wint_t *c);
+int				ft_print_x(unsigned long long x);
+int				ft_print_x_upper(unsigned long long x);
 
 #endif

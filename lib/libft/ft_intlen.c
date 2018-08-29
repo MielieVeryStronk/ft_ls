@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_intlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: enikel <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/27 14:08:56 by enikel            #+#    #+#             */
-/*   Updated: 2018/06/04 14:07:07 by enikel           ###   ########.fr       */
+/*   Updated: 2018/08/27 13:34:15 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_intlen(long int n)
+int		ft_intlen(long long int n)
 {
 	int	i;
 

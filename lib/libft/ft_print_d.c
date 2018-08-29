@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.h                                            :+:      :+:    :+:   */
+/*   ft_print_d.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/17 12:14:06 by enikel            #+#    #+#             */
-/*   Updated: 2018/08/21 16:11:15 by enikel           ###   ########.fr       */
+/*   Created: 2018/08/23 14:06:25 by enikel            #+#    #+#             */
+/*   Updated: 2018/08/27 15:22:50 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LS_H
-# define FT_LS_H
+#include "libft.h"
 
-# define LS_OPTIONS "rRalt"
+int		ft_print_d(int num)
+{
+	int		neg;
 
-# include "../lib/libft/libft.h"
-# include <stdlib.h>
-# include <dirent.h>
-# include <sys/stat.h>
-
-#endif
+	neg = 0;
+	if (num < 0)
+		neg = 1;
+	ft_putnbr(num);
+	return (ft_intlen(num) + neg);
+}

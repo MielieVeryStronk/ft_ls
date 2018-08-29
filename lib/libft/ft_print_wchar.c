@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.h                                            :+:      :+:    :+:   */
+/*   ft_print_wchar.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/17 12:14:06 by enikel            #+#    #+#             */
-/*   Updated: 2018/08/21 16:11:15 by enikel           ###   ########.fr       */
+/*   Created: 2018/08/24 10:31:02 by enikel            #+#    #+#             */
+/*   Updated: 2018/08/27 15:13:07 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_LS_H
-# define FT_LS_H
+#include "libft.h"
 
-# define LS_OPTIONS "rRalt"
+int		ft_print_wchar(wint_t c)
+{
+	int		size;
 
-# include "../lib/libft/libft.h"
-# include <stdlib.h>
-# include <dirent.h>
-# include <sys/stat.h>
-
-#endif
+	size = 0;
+	if (c >= 0 && c <= 127)
+		size = 1;
+	else if (c >= 128 && c <= 2047)
+		size = 2;
+	else if (c >= 2048 && c <= 65535)
+		size = 3;
+	else if (c >= 65536 && c <= 1114111)
+		size = 4;
+	ft_putwchar(c);
+	return (size);
+}
