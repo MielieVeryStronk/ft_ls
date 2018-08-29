@@ -1,39 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*   ft_ls_finit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/17 12:24:31 by enikel            #+#    #+#             */
-/*   Updated: 2018/08/29 14:40:01 by enikel           ###   ########.fr       */
+/*   Created: 2018/08/29 14:08:52 by enikel            #+#    #+#             */
+/*   Updated: 2018/08/29 14:13:05 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
-#include <stdio.h>
 
-int     main(int argc, char **argv)
+void	ft_ls_finit(t_ls_flags *flags)
 {
-	DIR             *dir;
-	struct dirent   *sd;
-	char			*out;
-	t_ls_flags		flags;
-	//struct stat		info;
-
-	ft_ls_finit(&flags);
-	dir = opendir(".");
-	if (dir == NULL && argv[0])
-	{
-		ft_putstr("ERROR MESSAGE");
-		exit(1);
-	}
-	while ((sd = readdir(dir)) != NULL && argc == 1)
-	{
-		out = sd->d_name;
-		if (out[0] != '.')
-			ft_printf("%s\n", out);
-	}
-	closedir(dir);
-	return (0);
+	flags->a = 0;
+	flags->dr = 0;
+	flags->l = 0;
+	flags->r = 0;
+	flags->t = 0;
 }

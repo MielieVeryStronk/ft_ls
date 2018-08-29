@@ -6,7 +6,7 @@
 #    By: enikel <enikel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/17 11:24:40 by enikel            #+#    #+#              #
-#    Updated: 2018/08/21 13:05:13 by enikel           ###   ########.fr        #
+#    Updated: 2018/08/29 14:20:06 by enikel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ OBJ_DIR := obj
 
 LIB_DIR := lib
 
-SRC := ft_ls.c
+SRC := ft_ls.c ft_ls_finit.c
 
 OBJ := $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
 
