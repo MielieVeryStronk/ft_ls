@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 12:14:06 by enikel            #+#    #+#             */
-/*   Updated: 2018/08/30 15:08:22 by enikel           ###   ########.fr       */
+/*   Updated: 2018/08/31 11:53:26 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <stdlib.h>
 # include <dirent.h>
 # include <sys/stat.h>
+# include <pwd.h>
+# include <grp.h>
+# include <time.h>
 
 typedef struct	s_ls_flags
 {
@@ -36,7 +39,8 @@ typedef struct node
 	int			links;
 	char		*owner;
 	char		*group;
-	int			*bytes;
+	char		*date;
+	long long	bytes;
     struct node *next;
 } 				node_t;
 
