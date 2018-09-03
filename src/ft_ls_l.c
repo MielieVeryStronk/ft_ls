@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 14:48:22 by enikel            #+#    #+#             */
-/*   Updated: 2018/08/31 13:31:41 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/03 11:16:00 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ void	ft_print_time(char *time)
 	int	i;
 
 	i = 8;
+	if (time[i] == ' ')
+	{
+		ft_putchar(' ');
+		i++;
+	}
 	while (ft_isdigit(time[i]))
 		ft_putchar(time[i++]);
 	i = 4;
@@ -71,9 +76,10 @@ void	ft_print_mode(unsigned mode)
 		ft_print_permission(str[i]);
 		i++;
 	}
+	ft_putchar(' ');
 }
 
-void	ft_ls_l(node_t *current, int longest)
+void	ft_ls_l(node_t *current, t_ls_flags *flags)
 {
 	int		space;
 
@@ -82,7 +88,7 @@ void	ft_ls_l(node_t *current, int longest)
 		ft_print_mode(current->mode);
 	if (current->links)
 	{
-		space = space - ft_intlen(current->links);
+		space = flags->lenlink - ft_intlen(current->links);
 		while (space > 0)
 		{
 			ft_putchar(' ');
@@ -95,7 +101,7 @@ void	ft_ls_l(node_t *current, int longest)
 	if (current->group)
 		ft_printf("%s  ", current->group);
 	if (current->bytes)
-		space = longest - ft_intlen(current->bytes);
+		space = flags->lenbyte - ft_intlen(current->bytes);
 		while (space > 0)
 		{
 			ft_putchar(' ');

@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 12:24:31 by enikel            #+#    #+#             */
-/*   Updated: 2018/08/30 12:36:42 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/03 14:30:01 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,33 +56,32 @@ t_ls_flags		*ft_ls_hflags(char *args, t_ls_flags *flags)
 	return (flags);
 }
 
+int		ft_isflag(t_ls_flags *flags)
+{
+	if (flags->a > 0 || flags->dr > 0 || flags->l > 0 || flags->r > 0
+	|| flags->t > 0)
+		return (1);
+	else
+		return (0);
+}
+
 int     main(int argc, char **argv)
 {
-	// DIR             *dir;
-	// struct dirent   *sd;
-	// char			*out;
 	t_ls_flags		*flags;
 
 	flags = malloc(sizeof(t_ls_flags) + 16);
 	ft_ls_finit(flags);
-	// dir = opendir(".");
-	// if (dir == NULL)
-	// {
-	// 	ft_putstr("ERROR MESSAGE");
-	// 	exit(1);
-	// }
 	if (argc > 1)
 	{
 		flags = ft_ls_hflags(argv[1], flags);
-		if (argv[1][0] == '-')
+		if (argv[1][0] == '-' && ft_isflag(flags) && argc == 2)
 			ft_ls_flagorder(flags);
+		else if (argv[1][0] == '-' && !ft_isflag(flags))
+			ft_ls_exit(2, argv[1]);
+		// else
+		// 	ft_ls_direct(argv);
 	}
-	// else while ((sd = readdir(dir)) != NULL && argc == 1)
-	// {
-	// 	out = sd->d_name;
-	// 	if (out[0] != '.')
-	// 		ft_printf("%s\n", out);
-	// }
-	// closedir(dir);
+	else
+		ft_ls_flagorder(flags);
 	return (0);
 }
