@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/23 14:10:32 by enikel            #+#    #+#             */
-/*   Updated: 2018/08/28 09:45:07 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/05 08:46:57 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 
 int		ft_print_x(unsigned long long x)
 {
-	ft_putstr(ft_ulltoa_base(x, 16));
-	return (ft_strlen(ft_ulltoa_base(x, 16)));
+	char	*str;
+	int		len;
+
+	str = ft_ulltoa_base(x, 16);
+	ft_putstr(str);
+	len = ft_strlen(str);
+	free(str);
+	return (len);
 }

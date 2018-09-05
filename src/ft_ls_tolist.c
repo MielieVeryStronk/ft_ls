@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 12:33:36 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/03 11:12:28 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/05 14:19:22 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ void	ft_get_details(node_t *current, struct stat *details)
 	current->mode = details->st_mode;
 	current->links = details->st_nlink;
 	current->bytes = details->st_size;
-	current->date = ft_strdup(ctime(&details->st_ctime));
+	current->date = ft_strdup(ctime(&details->st_mtime));
 }
 
 void	ft_ls_tolist(DIR *dir, node_t *files, t_ls_flags *flags)
 {
-	node_t *current;
+	node_t 			*current;
 	struct dirent	*sd;
 	struct stat		*details;
 
@@ -75,4 +75,5 @@ void	ft_ls_tolist(DIR *dir, node_t *files, t_ls_flags *flags)
 	//ft_ls_sort(files, flags);
 	current->next = NULL;
 	ft_print_list(files, flags);
+	free(details);
 }

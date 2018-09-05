@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/23 14:24:42 by enikel            #+#    #+#             */
-/*   Updated: 2018/08/27 15:15:03 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/05 08:45:31 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 
 int		ft_print_u(unsigned int u)
 {
-	ft_putstr(ft_itoa_base(u, 10));
-	return (ft_strlen(ft_itoa_base(u, 10)));
+	char	*str;
+	int		len;
+
+	str = ft_itoa_base(u, 10);
+	ft_putstr(str);
+	len = ft_strlen(str);
+	free(str);
+	return (len);
 }
