@@ -6,13 +6,13 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 12:24:31 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/05 13:54:33 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/06 13:49:03 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-void	ft_ls_flagorder(t_ls_flags *flags)
+void	ft_ls_flagorder(t_ls_flags *flags, char *path)
 {
 	DIR				*dir;
 	node_t 			*files;
@@ -23,7 +23,7 @@ void	ft_ls_flagorder(t_ls_flags *flags)
 	if (flags->dr > 0)
 	{
 		dir = opendir(".");
-		ft_ls_recursive(flags);
+		ft_ls_recursive(flags, path);
 	}
 	else
 	{
@@ -75,7 +75,7 @@ int     main(int argc, char **argv)
 	{
 		flags = ft_ls_hflags(argv[1], flags);
 		if (argv[1][0] == '-' && ft_isflag(flags) && argc == 2) // flags and no filenames
-			ft_ls_flagorder(flags);
+			ft_ls_flagorder(flags, ".");
 		else if (argv[1][0] == '-' && !ft_isflag(flags))
 			ft_ls_exit(2, argv[1]);
 		else if (argv[1][0] != '-') // no flags with filenames
@@ -89,7 +89,7 @@ int     main(int argc, char **argv)
 		}
 	}
 	else
-		ft_ls_flagorder(flags); // no flags no filenames
+		ft_ls_flagorder(flags, "."); // no flags no filenames
 	free(flags);
 	return (0);
 }

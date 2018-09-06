@@ -6,7 +6,7 @@
 #    By: enikel <enikel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/17 11:24:40 by enikel            #+#    #+#              #
-#    Updated: 2018/09/05 11:31:25 by enikel           ###   ########.fr        #
+#    Updated: 2018/09/06 09:48:55 by enikel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@make all -C $(LIBFT_DIR)/
 	@ar rcs $(NAME).a $(OBJ) $(LIBFT_DIR)/*.o
-	@$(CC) $(NAME).a -o $(NAME)
+	@$(CC) -g -O0 $(NAME).a -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
