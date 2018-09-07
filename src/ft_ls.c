@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 12:24:31 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/07 11:05:44 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/07 14:43:24 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ void	ft_ls_flagorder(t_ls_flags *flags, char *path)
 	if (flags->dr > 0)
 	{
 		dir = opendir(".");
-		ft_ls_recursive(flags, path);
+		if (path[0] == '.' && path[1] == '/')
+			ft_ls_recursive(flags, path);
+		else
+			ft_ls_recursive(flags, ft_strjoin("./", path));
 	}
 	else
 	{
@@ -84,8 +87,16 @@ int     main(int argc, char **argv)
 		else if (argv[1][0] == '-' && argc > 2)
 		{
 			i = 2;
-			while (i < argc)
-				ft_ls_direct(flags, argv[i++], argc);
+			if (flags->dr > 0)
+			{
+				while (i < argc)
+					ft_ls_flagorder(flags, argv[i++]);
+			}
+			else
+			{
+				while (i < argc)
+					ft_ls_direct(flags, argv[i++], argc);
+			}
 		}
 	}
 	else
