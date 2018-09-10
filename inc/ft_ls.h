@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 12:14:06 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/06 13:47:42 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/10 16:00:46 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ typedef struct node
 	char		*group;
 	char		*date;
 	long long	bytes;
+	int			block;
     struct node *next;
 } 				node_t;
 
 int		ft_isflag(t_ls_flags *flags);
+int		ft_ls_blocksize(node_t *current);
 void	ft_ls_direct(t_ls_flags *flags, char *dirname, int argc);
 void	ft_ls_finit(t_ls_flags *flags);
 int		ft_ls_isfile(char *dirname);

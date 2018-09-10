@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 09:19:01 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/07 14:39:28 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/10 15:46:15 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,11 @@ int		ft_ls_isdir(char *name)
 	if( stat(name, &s) == 0 )
 	{
 		if( s.st_mode & S_IFDIR )
-		{
 			return(1);
-		}
 		else if( s.st_mode & S_IFREG )
-		{
 			return(0);
-		}
 		else
-		{
 			return(0);
-		}
 	}
 	else
 		return (0);
