@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 12:14:06 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/10 16:00:46 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/11 10:18:47 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct node
 	char		*date;
 	long long	bytes;
 	int			block;
+	char		*symlink;
     struct node *next;
 } 				node_t;
 

@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 12:33:36 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/10 16:01:37 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/11 11:05:11 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	ft_print_list(node_t *list, t_ls_flags *flags)
 			if (flags->l > 0)
 				ft_ls_l(current, flags);
         	ft_printf("%s", current->name);
+			if (flags->l > 0 && current->symlink)
+				ft_printf(" -> %s", current->symlink);
 			ft_printf("\n");
 		}
 		else if (current->name && flags->a == 0 && current->name[0] != '.')
@@ -33,6 +35,8 @@ void	ft_print_list(node_t *list, t_ls_flags *flags)
 			if (flags->l > 0)
 				ft_ls_l(current, flags);
         	ft_printf("%s", current->name);
+			if (flags->l > 0 && current->symlink)
+				ft_printf(" -> %s", current->symlink);
 			ft_printf("\n");
 		}
         current = current->next;
@@ -52,7 +56,7 @@ void	ft_get_details(node_t *current, struct stat *details)
 	current->links = details->st_nlink;
 	current->bytes = details->st_size;
 	current->date = ft_strdup(ctime(&details->st_mtime));
-	current->block = details->st_blksize;
+	current->block = details->st_blocks;
 }
 
 void	ft_ls_tolist(DIR *dir, node_t *files, t_ls_flags *flags)
@@ -72,6 +76,7 @@ void	ft_ls_tolist(DIR *dir, node_t *files, t_ls_flags *flags)
 		if (ft_intlen(current->links) > flags->lenlink)
 			flags->lenlink = ft_intlen(current->links);
 		current->name = ft_strdup(sd->d_name);
+		//readlink(sd->d_name, current->symlink, details->st_size + 1);
 		current->next = malloc(sizeof(node_t));
 		current = current->next;
 	}
