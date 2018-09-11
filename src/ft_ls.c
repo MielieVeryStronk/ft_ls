@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 12:24:31 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/11 10:42:22 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/11 13:58:35 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int     main(int argc, char **argv)
 		else if (argv[1][0] != '-') // no flags with filenames
 			while (i < argc)
 				ft_ls_direct(flags, argv[i++], argc);
-		else if (argv[1][0] == '-' && argc > 2)
+		else if (argv[1][0] == '-' && argc > 2) // flags + filenames
 		{
 			i = 2;
 			if (flags->dr > 0)
@@ -92,7 +92,11 @@ int     main(int argc, char **argv)
 			else
 			{
 				while (i < argc)
+				{
 					ft_ls_direct(flags, argv[i++], argc);
+					if (i < argc)
+						ft_putchar('\n');
+				}
 			}
 		}
 	}

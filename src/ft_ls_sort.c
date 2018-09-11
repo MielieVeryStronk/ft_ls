@@ -6,45 +6,34 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 13:43:10 by enikel            #+#    #+#             */
-/*   Updated: 2018/08/31 14:07:46 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/11 16:12:05 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-void swap(node_t *a, node_t *b)
+void	ft_ls_sort(node_t *current)
 {
 	node_t	*temp;
-    
-	temp = a;
-    a = b;
-    b = temp;
-}
+	node_t	*curr;
+	node_t	*forward;
 
-void	ft_sort_name(node_t *files)
-{
-	int	swapped;
-	node_t *ptr1;
-    node_t *lptr;
-
-	swapped = 0;
-    ptr1 = files;
-	lptr = NULL;
- 
-	while (ptr1->next != lptr)
+	curr = current;
+	while (curr && curr->next)
 	{
-		if (ft_strcmp(ptr1->name, ptr1->next->name) < 0)
-		{ 
-			swap(ptr1, ptr1->next);
-			swapped = 1;
+		forward = curr;
+		while (forward->name && forward->next->name)
+		{
+			if (ft_strcmp(ft_str_capitalize(forward->name), ft_str_capitalize(forward->next->name)) > 0)
+			{
+				temp = forward->next->next;
+				temp->prev = forward;
+				forward->next->next = forward;
+				forward->prev = forward->next;
+				forward->next = temp;
+			}
+			forward = forward->next;
 		}
-		ptr1 = ptr1->next;
+		curr = curr->next;
 	}
-	lptr = ptr1;
-}
-
-void	ft_ls_sort(node_t *files, t_ls_flags *flags)
-{
-	if (flags->l > 0)
-		ft_sort_name(files);
-}
+} 

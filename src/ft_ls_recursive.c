@@ -6,20 +6,13 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 09:19:01 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/10 15:46:15 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/11 13:50:09 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
 int		ft_ls_isdir(char *name)
-/*{
-	struct stat *type;
-
-	type = malloc(sizeof(struct stat));
-	stat(name, type);
-	return S_ISREG(type->st_mode);
-}*/
 {
 	struct stat s;
 	if( stat(name, &s) == 0 )
