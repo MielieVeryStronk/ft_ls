@@ -6,34 +6,156 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/31 13:43:10 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/11 16:12:05 by enikel           ###   ########.fr       */
+/*   Upcdated: 2018/09/12 09:53:30 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-void	ft_ls_sort(node_t *current)
+void    ft_ls_sort_switch(node_t **start, node_t *node)
 {
-	node_t	*temp;
+    node_t *prev;
+    node_t *next;
+    node_t *tmp;
+
+    prev = node->prev;
+    next = node->next;
+    tmp = next->next;
+    
+    if (!prev)
+        *start = next;
+    else
+        prev->next = next;
+    if (tmp)
+        tmp->prev = node;
+    
+    next->next = node;
+    next->prev = prev;
+    node->prev = next;
+    node->next = tmp;
+    
+}
+
+void	ft_ls_sort_name(node_t **current)
+{
 	node_t	*curr;
 	node_t	*forward;
+	int		swap;
 
-	curr = current;
-	while (curr && curr->next)
+	swap = 1;
+	while (swap == 1)
 	{
-		forward = curr;
-		while (forward->name && forward->next->name)
+		swap = 0;
+		curr = *current;
+		while (curr && curr->next)
 		{
-			if (ft_strcmp(ft_str_capitalize(forward->name), ft_str_capitalize(forward->next->name)) > 0)
+			forward = curr;
+			while (forward->name && forward->next->name)
 			{
-				temp = forward->next->next;
-				temp->prev = forward;
-				forward->next->next = forward;
-				forward->prev = forward->next;
-				forward->next = temp;
+				if (ft_strcmp(forward->name, forward->next->name) > 0)
+				{
+					ft_ls_sort_switch(current, forward);
+					swap = 1;
+				}
+				forward = forward->next;
 			}
-			forward = forward->next;
+			curr = curr->next;
 		}
-		curr = curr->next;
 	}
-} 
+}
+
+void	ft_ls_sort_rev(node_t **current)
+{
+	node_t	*curr;
+	node_t	*forward;
+	int		swap;
+
+	swap = 1;
+	while (swap == 1)
+	{
+		swap = 0;
+		curr = *current;
+		while (curr && curr->next)
+		{
+			forward = curr;
+			while (forward->name && forward->next->name)
+			{
+				if (ft_strcmp(forward->name, forward->next->name) < 0)
+				{
+					ft_ls_sort_switch(current, forward);
+					swap = 1;
+				}
+				forward = forward->next;
+			}
+			curr = curr->next;
+		}
+	}
+}
+
+void	ft_ls_sort_date(node_t **current)
+{
+	node_t	*curr;
+	node_t	*forward;
+	int		swap;
+
+	swap = 1;
+	while (swap == 1)
+	{
+		swap = 0;
+		curr = *current;
+		while (curr && curr->next)
+		{
+			forward = curr;
+			while (forward->cdate && forward->next->cdate)
+			{
+				if (forward->cdate > forward->next->cdate)
+				{
+					ft_ls_sort_switch(current, forward);
+					swap = 1;
+				}
+				forward = forward->next;
+			}
+			curr = curr->next;
+		}
+	}
+}
+
+void	ft_ls_sort_rdate(node_t **current)
+{
+	node_t	*curr;
+	node_t	*forward;
+	int		swap;
+
+	swap = 1;
+	while (swap == 1)
+	{
+		swap = 0;
+		curr = *current;
+		while (curr && curr->next)
+		{
+			forward = curr;
+			while (forward->cdate && forward->next->cdate)
+			{
+				if (forward->cdate < forward->next->cdate)
+				{
+					ft_ls_sort_switch(current, forward);
+					swap = 1;
+				}
+				forward = forward->next;
+			}
+			curr = curr->next;
+		}
+	}
+}
+
+void	ft_ls_sort(node_t **current, t_ls_flags *flags)
+{
+	if (ft_isflag(flags) == 0)
+		ft_ls_sort_name(current);
+	else if (flags->t > 0 && flags->r == 0)
+		ft_ls_sort_date(current);
+	else if (flags->r > 0 && flags->t == 0)
+		ft_ls_sort_rev(current);
+	else if (flags->r > 0 && flags->t > 0)
+		ft_ls_sort_rdate(current);
+}

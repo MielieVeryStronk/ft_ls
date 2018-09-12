@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 12:14:06 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/11 15:36:28 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/12 10:16:58 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct node
 	char		*owner;
 	char		*group;
 	char		*date;
+	unsigned	cdate;
 	long long	bytes;
 	int			block;
 	char		*symlink;
@@ -57,7 +58,11 @@ int		ft_ls_isfile(char *dirname);
 int		ft_ls_exit(int err, char *var);
 void	ft_ls_l(node_t *current, t_ls_flags *flags);
 void	ft_ls_recursive(t_ls_flags *flags, char *path);
-void	ft_ls_sort(node_t *head);
+void	ft_ls_sort(node_t **current, t_ls_flags *flags);
+void	ft_ls_sort_name(node_t **current);
+void	ft_ls_sort_date(node_t **current);
+void	ft_ls_sort_rdate(node_t **current);
+void	ft_ls_sort_rev(node_t **current);
 void	ft_ls_tolist(DIR *dir, node_t *files, t_ls_flags *flags);
 // void	ft_ls_a(DIR *dir, struct dirent *sd);
 
