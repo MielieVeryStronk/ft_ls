@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/13 12:09:30 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/13 15:46:44 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/13 16:34:19 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ void	ft_ls_file(t_ls_fl *flags, char *filename)
 	DIR		*dir;
 	t_node	*files;
 
+	dir = opendir(temp);
+	if (dir == NULL)
+		ft_ls_exit(2, filename);
 	if (!(files = malloc(sizeof(t_node))))
 		ft_ls_exit(3, NULL);
 	flags->file = 1;
@@ -28,9 +31,6 @@ void	ft_ls_file(t_ls_fl *flags, char *filename)
 	replace = ft_strrchr(temp, '/');
 	replace++;
 	*replace = '\0';
-	dir = opendir(temp);
-	if (dir == NULL)
-		ft_ls_exit(2, filename);
 	ft_ls_tolist(dir, files, flags, ft_ls_checkpath(filename));
 	flags->file = 0;
 }

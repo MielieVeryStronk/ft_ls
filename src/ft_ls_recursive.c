@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 09:19:01 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/13 11:49:05 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/13 16:35:19 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ void	ft_ls_recursive(t_ls_fl *flags, char *path)
 	char			*repath;
 
 	dir = opendir(path);
+	if (dir == NULL)
+		ft_ls_exit(2, path);
 	if (!ft_strcmp(path, "."))
 		ft_ls_direct(flags, path, 4);
 	while ((sd = readdir(dir)) != NULL)

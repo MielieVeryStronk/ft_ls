@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 12:24:31 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/13 16:13:05 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/13 16:23:25 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int				main(int argc, char **argv)
 			{
 				while (i < argc)
 				{
-					ft_ls_direct(flags, argv[i]);
+					ft_ls_direct(flags, argv[i], 4);
 					ft_ls_flagorder(flags, argv[i++]);
 				}
 			}
