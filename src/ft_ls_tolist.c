@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 12:33:36 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/13 13:14:34 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/13 15:53:54 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ void	ft_ls_tolist(DIR *dir, t_node *files, t_ls_fl *flags, char *path)
 	while ((sd = readdir(dir)) != NULL)
 	{
 		path = ft_ls_checkpath(path);
-		stat(ft_strjoin(path, sd->d_name), details);
+		if (flags->file == 0)
+			stat(ft_strjoin(path, sd->d_name), details);
+		else
+			stat(path, details);
 		ft_get_details(current, details);
 		if (ft_intlen(current->bytes) > flags->lenbyte)
 			flags->lenbyte = ft_intlen(current->bytes);
