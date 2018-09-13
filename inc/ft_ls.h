@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 12:14:06 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/12 10:16:58 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/13 08:00:20 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void	ft_ls_sort_name(node_t **current);
 void	ft_ls_sort_date(node_t **current);
 void	ft_ls_sort_rdate(node_t **current);
 void	ft_ls_sort_rev(node_t **current);
-void	ft_ls_tolist(DIR *dir, node_t *files, t_ls_flags *flags);
+void    ft_ls_sort_switch(node_t **start, node_t *node);
+void	ft_ls_tolist(DIR *dir, node_t *files, t_ls_flags *flags, char *path);
 // void	ft_ls_a(DIR *dir, struct dirent *sd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 09:19:01 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/11 13:50:09 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/12 15:49:16 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ void	ft_ls_recursive(t_ls_flags *flags, char *path)
 	while ((sd = readdir(dir)) != NULL)
 	{
 		repath = ft_strjoin(path, "/");
-		if (ft_ls_isdir(ft_strjoin(repath, sd->d_name)) && ft_ls_filter(sd->d_name, flags))
+		if (ft_ls_isdir(ft_strjoin(repath, sd->d_name))
+		&& ft_ls_filter(sd->d_name, flags))
 		{
 			ft_putchar('\n');
 			repath = ft_strjoin(repath, sd->d_name);

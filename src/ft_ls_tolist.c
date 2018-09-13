@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 12:33:36 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/12 09:56:42 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/13 08:08:07 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,16 @@ void	ft_get_details(node_t *current, struct stat *details)
 	current->block = details->st_blocks;
 }
 
-void	ft_ls_tolist(DIR *dir, node_t *files, t_ls_flags *flags)
+char	*ft_checkpath(char *path)
+{
+	if (path[0] != '/' && path[1] != '/')
+		path = ft_strjoin("./", path);
+	if (path[ft_strlen(path) - 1] != '/')
+		path = ft_strjoin(path, "/");
+	return (path);
+}
+
+void	ft_ls_tolist(DIR *dir, node_t *files, t_ls_flags *flags, char *path)
 {
 	node_t 			*current;
 	struct dirent	*sd;
@@ -67,7 +76,8 @@ void	ft_ls_tolist(DIR *dir, node_t *files, t_ls_flags *flags)
 	details = malloc(sizeof(struct stat));
 	while ((sd = readdir(dir)) != NULL)
 	{
-		stat(sd->d_name, details);
+		path = ft_checkpath(path);
+		stat(ft_strjoin(path, sd->d_name), details);
 		ft_get_details(current, details);
 		if (ft_intlen(current->bytes) > flags->lenbyte)
 			flags->lenbyte = ft_intlen(current->bytes);

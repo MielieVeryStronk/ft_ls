@@ -1,32 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls_direct.c                                     :+:      :+:    :+:   */
+/*   ft_ls_sort_switch.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/05 11:27:26 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/13 08:00:42 by enikel           ###   ########.fr       */
+/*   Created: 2018/09/12 13:05:29 by enikel            #+#    #+#             */
+/*   Updated: 2018/09/12 13:05:51 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-void	ft_ls_direct(t_ls_flags *flags, char *dirname, int argc)
+void    ft_ls_sort_switch(node_t **start, node_t *node)
 {
-	DIR				*dir;
-	node_t 			*files;
+    node_t *prev;
+    node_t *next;
+    node_t *tmp;
 
-	if (ft_isflag(flags))
-		argc--;
-	files = malloc(sizeof(node_t));
-	if (files == NULL)
-    	exit(1);
-	dir = opendir(dirname);
-	if (argc > 2 && ft_strcmp(".", dirname))
-		ft_printf("%s:\n", dirname);
-	ft_ls_tolist(dir, files, flags, dirname);
-	if (dir == NULL)
-		ft_ls_exit(2, dirname);
-	closedir(dir);
+    prev = node->prev;
+    next = node->next;
+    tmp = next->next;
+    
+    if (!prev)
+        *start = next;
+    else
+        prev->next = next;
+    if (tmp)
+        tmp->prev = node;
+    
+    next->next = node;
+    next->prev = prev;
+    node->prev = next;
+    node->next = tmp;
+    
 }
