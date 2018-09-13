@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls_direct.c                                     :+:      :+:    :+:   */
+/*   ft_ls_isdir.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/05 11:27:26 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/13 12:31:17 by enikel           ###   ########.fr       */
+/*   Created: 2018/09/13 11:48:33 by enikel            #+#    #+#             */
+/*   Updated: 2018/09/13 11:48:36 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-void	ft_ls_direct(t_ls_fl *flags, char *dirname, int argc)
+int		ft_ls_isdir(char *name)
 {
-	DIR				*dir;
-	t_node			*files;
+	struct stat s;
 
-	if (ft_isflag(flags))
-		argc--;
-	if (!(files = malloc(sizeof(t_node))))
-		ft_ls_exit(3, NULL);
-	if (files == NULL)
-		exit(1);
-	dir = opendir(dirname);
-	if (argc > 2 && ft_strcmp(".", dirname))
-		ft_printf("%s:\n", dirname);
-	ft_ls_tolist(dir, files, flags, dirname);
-	if (dir == NULL)
-		ft_ls_exit(2, dirname);
-	closedir(dir);
+	if (stat(name, &s) == 0)
+	{
+		if (s.st_mode & S_IFDIR)
+			return (1);
+		else if (s.st_mode & S_IFREG)
+			return (0);
+		else
+			return (0);
+	}
+	else
+		return (0);
 }

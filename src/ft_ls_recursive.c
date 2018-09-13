@@ -6,28 +6,11 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 09:19:01 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/13 08:42:26 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/13 11:49:05 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
-
-int		ft_ls_isdir(char *name)
-{
-	struct stat s;
-
-	if (stat(name, &s) == 0)
-	{
-		if (s.st_mode & S_IFDIR)
-			return (1);
-		else if (s.st_mode & S_IFREG)
-			return (0);
-		else
-			return (0);
-	}
-	else
-		return (0);
-}
 
 int		ft_ls_filter(char *name, t_ls_fl *flags)
 {

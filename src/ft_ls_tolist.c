@@ -6,19 +6,11 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 12:33:36 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/13 08:42:26 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/13 13:14:34 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
-
-void	ft_print_list(t_node *current, t_ls_fl *flags)
-{
-	if (flags->l > 0)
-		ft_ls_l(current, flags);
-	ft_printf("%s", current->name);
-	ft_printf("\n");
-}
 
 void	ft_afilter(t_node *list, t_ls_fl *flags)
 {
@@ -54,15 +46,6 @@ void	ft_get_details(t_node *current, struct stat *details)
 	current->block = details->st_blocks;
 }
 
-char	*ft_checkpath(char *path)
-{
-	if (path[0] != '/' && path[1] != '/')
-		path = ft_strjoin("./", path);
-	if (path[ft_strlen(path) - 1] != '/')
-		path = ft_strjoin(path, "/");
-	return (path);
-}
-
 void	ft_ls_tolist(DIR *dir, t_node *files, t_ls_fl *flags, char *path)
 {
 	t_node			*current;
@@ -71,10 +54,11 @@ void	ft_ls_tolist(DIR *dir, t_node *files, t_ls_fl *flags, char *path)
 
 	current = files;
 	current->prev = NULL;
-	details = malloc(sizeof(struct stat));
+	if (!(details = malloc(sizeof(struct stat))))
+		ft_ls_exit(3, NULL);
 	while ((sd = readdir(dir)) != NULL)
 	{
-		path = ft_checkpath(path);
+		path = ft_ls_checkpath(path);
 		stat(ft_strjoin(path, sd->d_name), details);
 		ft_get_details(current, details);
 		if (ft_intlen(current->bytes) > flags->lenbyte)
@@ -87,7 +71,17 @@ void	ft_ls_tolist(DIR *dir, t_node *files, t_ls_fl *flags, char *path)
 		current = current->next;
 	}
 	current->next = NULL;
-	ft_ls_sort(&files, flags);
-	ft_afilter(files, flags);
+	if (flags->file == 0)
+	{
+		ft_ls_sort(&files, flags);
+		ft_afilter(files, flags);
+	}
+	else
+	{
+		path[ft_strlen(path) - 1] = '\0';
+		path = ft_strrchr(path, '/');
+		path++;
+		ft_ls_specific(files, flags, path);
+	}
 	free(details);
 }

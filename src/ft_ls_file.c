@@ -1,33 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls_direct.c                                     :+:      :+:    :+:   */
+/*   ft_ls_file.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/05 11:27:26 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/13 12:31:17 by enikel           ###   ########.fr       */
+/*   Created: 2018/09/13 12:09:30 by enikel            #+#    #+#             */
+/*   Updated: 2018/09/13 12:50:17 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-void	ft_ls_direct(t_ls_fl *flags, char *dirname, int argc)
+void	ft_ls_file(t_ls_fl *flags, char *filename)
 {
-	DIR				*dir;
-	t_node			*files;
+	char	*temp;
+	char	*replace;
+	DIR		*dir;
+	t_node	*files;
 
-	if (ft_isflag(flags))
-		argc--;
 	if (!(files = malloc(sizeof(t_node))))
 		ft_ls_exit(3, NULL);
-	if (files == NULL)
-		exit(1);
-	dir = opendir(dirname);
-	if (argc > 2 && ft_strcmp(".", dirname))
-		ft_printf("%s:\n", dirname);
-	ft_ls_tolist(dir, files, flags, dirname);
+	flags->file = 1;
+	temp = ft_strdup(filename);
+	temp = ft_ls_checkpath(temp);
+	temp[ft_strlen(temp) - 1] = '\0';
+	replace = ft_strrchr(temp, '/');
+	replace++;
+	*replace = '\0';
+	dir = opendir(temp);
 	if (dir == NULL)
-		ft_ls_exit(2, dirname);
-	closedir(dir);
+		ft_ls_exit(2, filename);
+	ft_ls_tolist(dir, files, flags, ft_ls_checkpath(filename));
+	flags->file = 0;
 }

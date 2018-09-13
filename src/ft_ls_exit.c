@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 10:29:04 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/13 08:28:23 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/13 08:57:50 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,7 @@ int		ft_ls_exit(int err, char *var)
 	}
 	else if (err == 2)
 		ft_printf("ft_ls: %s: No such file or directory", var);
+	else if (err == 3)
+		ft_printf("malloc error");
 	exit(err);
 }

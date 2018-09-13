@@ -6,7 +6,7 @@
 #    By: enikel <enikel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/17 11:24:40 by enikel            #+#    #+#              #
-#    Updated: 2018/09/13 08:33:54 by enikel           ###   ########.fr        #
+#    Updated: 2018/09/13 13:06:12 by enikel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,8 +21,9 @@ OBJ_DIR := obj
 LIB_DIR := lib
 
 SRC := ft_ls.c ft_ls_finit.c ft_ls_exit.c ft_ls_tolist.c ft_ls_l.c ft_ls_sort.c \
-ft_ls_recursive.c ft_isflag.c ft_ls_direct.c ft_ls_blocksize.c	\
-ft_ls_sort_switch.c
+ft_ls_recursive.c ft_isflag.c ft_ls_direct.c ft_ls_blocksize.c ft_ls_isdir.c \
+ft_ls_sort_switch.c ft_ls_checkpath.c ft_ls_file.c ft_print_list.c \
+ft_ls_specific.c
 
 OBJ := $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
 

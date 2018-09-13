@@ -1,33 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls_direct.c                                     :+:      :+:    :+:   */
+/*   ft_ls_specific.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/05 11:27:26 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/13 12:31:17 by enikel           ###   ########.fr       */
+/*   Created: 2018/09/13 13:00:33 by enikel            #+#    #+#             */
+/*   Updated: 2018/09/13 15:01:19 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-void	ft_ls_direct(t_ls_fl *flags, char *dirname, int argc)
+void	ft_ls_specific(t_node *list, t_ls_fl *flags, char *name)
 {
-	DIR				*dir;
-	t_node			*files;
+	t_node *current;
 
-	if (ft_isflag(flags))
-		argc--;
-	if (!(files = malloc(sizeof(t_node))))
-		ft_ls_exit(3, NULL);
-	if (files == NULL)
-		exit(1);
-	dir = opendir(dirname);
-	if (argc > 2 && ft_strcmp(".", dirname))
-		ft_printf("%s:\n", dirname);
-	ft_ls_tolist(dir, files, flags, dirname);
-	if (dir == NULL)
-		ft_ls_exit(2, dirname);
-	closedir(dir);
+	current = list;
+	while (current != NULL)
+	{
+		if (ft_strcmp(name, current->name) == 0)
+		{
+			ft_print_list(current, flags);
+			break ;
+		}
+		current = current->next;
+	}
 }

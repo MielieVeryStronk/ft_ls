@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 12:24:31 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/13 08:42:26 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/13 15:07:53 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void			ft_ls_flagorder(t_ls_fl *flags, char *path)
 	DIR				*dir;
 	t_node			*files;
 
-	files = malloc(sizeof(t_node));
+	if (!(files = malloc(sizeof(t_node))))
+		ft_ls_exit(3, NULL);
 	if (files == NULL)
 		exit(1);
 	if (flags->dr > 0)
@@ -69,7 +70,8 @@ int				main(int argc, char **argv)
 	int				i;
 
 	i = 1;
-	flags = malloc(sizeof(t_ls_fl) + 16);
+	if (!(flags = malloc(sizeof(t_ls_fl) + 16)))
+		ft_ls_exit(3, NULL);
 	ft_ls_finit(flags);
 	if (argc > 1)
 	{
@@ -80,7 +82,12 @@ int				main(int argc, char **argv)
 			ft_ls_exit(2, argv[1]);
 		else if (argv[1][0] != '-') // no flags with filenames
 			while (i < argc)
-				ft_ls_direct(flags, argv[i++], argc);
+			{
+				if (ft_ls_isdir(argv[i]))
+					ft_ls_direct(flags, argv[i++], argc);
+				else
+					ft_ls_file(flags, argv[i++]);
+			}
 		else if (argv[1][0] == '-' && argc > 2) // flags + filenames
 		{
 			i = 2;
@@ -89,7 +96,10 @@ int				main(int argc, char **argv)
 					ft_ls_flagorder(flags, argv[i++]);
 				else while (i < argc)
 				{
-					ft_ls_direct(flags, argv[i++], argc);
+					if (ft_ls_isdir(argv[i]))
+						ft_ls_direct(flags, argv[i++], argc);
+					else
+						ft_ls_file(flags, argv[i++]);
 					if (i < argc)
 						ft_putchar('\n');
 				}
