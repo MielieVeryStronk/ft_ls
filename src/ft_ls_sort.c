@@ -5,17 +5,17 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/08/31 13:43:10 by enikel            #+#    #+#             */
-/*   Upcdated: 2018/09/12 09:53:30 by enikel           ###   ########.fr       */
+/*   Created: 2018/09/13 08:16:57 by enikel            #+#    #+#             */
+/*   Updated: 2018/09/13 08:42:26 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-void	ft_ls_sort_name(node_t **current)
+void	ft_ls_sort_name(t_node **current)
 {
-	node_t	*curr;
-	node_t	*forward;
+	t_node	*curr;
+	t_node	*forward;
 	int		swap;
 
 	swap = 1;
@@ -40,10 +40,10 @@ void	ft_ls_sort_name(node_t **current)
 	}
 }
 
-void	ft_ls_sort_rev(node_t **current)
+void	ft_ls_sort_rev(t_node **current)
 {
-	node_t	*curr;
-	node_t	*forward;
+	t_node	*curr;
+	t_node	*forward;
 	int		swap;
 
 	swap = 1;
@@ -68,10 +68,10 @@ void	ft_ls_sort_rev(node_t **current)
 	}
 }
 
-void	ft_ls_sort_date(node_t **current)
+void	ft_ls_sort_date(t_node **current)
 {
-	node_t	*curr;
-	node_t	*forward;
+	t_node	*curr;
+	t_node	*forward;
 	int		swap;
 
 	swap = 1;
@@ -96,10 +96,10 @@ void	ft_ls_sort_date(node_t **current)
 	}
 }
 
-void	ft_ls_sort_rdate(node_t **current)
+void	ft_ls_sort_rdate(t_node **current)
 {
-	node_t	*curr;
-	node_t	*forward;
+	t_node	*curr;
+	t_node	*forward;
 	int		swap;
 
 	swap = 1;
@@ -124,7 +124,7 @@ void	ft_ls_sort_rdate(node_t **current)
 	}
 }
 
-void	ft_ls_sort(node_t **current, t_ls_flags *flags)
+void	ft_ls_sort(t_node **current, t_ls_fl *flags)
 {
 	if (ft_isflag(flags) == 0)
 		ft_ls_sort_name(current);

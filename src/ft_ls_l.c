@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 14:48:22 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/10 14:33:55 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/13 08:42:26 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	ft_print_mode(unsigned mode)
 	ft_putchar(' ');
 }
 
-void	ft_ls_l(node_t *current, t_ls_flags *flags)
+void	ft_ls_l(t_node *current, t_ls_fl *flags)
 {
 	int		space;
 
@@ -102,12 +102,12 @@ void	ft_ls_l(node_t *current, t_ls_flags *flags)
 		ft_printf("%s  ", current->group);
 	if (current->bytes)
 		space = flags->lenbyte - ft_intlen(current->bytes);
-		while (space > 0)
-		{
-			ft_putchar(' ');
-			space--;
-		}
-		ft_printf("%lld ", current->bytes);
+	while (space > 0)
+	{
+		ft_putchar(' ');
+		space--;
+	}
+	ft_printf("%lld ", current->bytes);
 	if (current->date)
 		ft_print_time(current->date);
 }

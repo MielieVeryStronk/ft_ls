@@ -6,18 +6,18 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/07 15:12:19 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/11 10:13:58 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/13 08:37:54 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-int		ft_ls_blocksize(node_t *current)
+int		ft_ls_blocksize(t_node *current)
 {
 	int		ret;
 
 	ret = 0;
-    while (current != NULL)
+	while (current != NULL)
 	{
 		ret = ret + current->block;
 		current = current->next;

@@ -6,40 +6,38 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 12:33:36 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/13 08:08:07 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/13 08:42:26 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-void	ft_print_list(node_t *current, t_ls_flags *flags)
+void	ft_print_list(t_node *current, t_ls_fl *flags)
 {
-		if (flags->l > 0)
-			ft_ls_l(current, flags);
-		ft_printf("%s", current->name);
-		/*if (flags->l > 0 && current->symlink)
-			ft_printf(" -> %s", current->symlink);*/
-		ft_printf("\n");
+	if (flags->l > 0)
+		ft_ls_l(current, flags);
+	ft_printf("%s", current->name);
+	ft_printf("\n");
 }
 
-void	ft_afilter(node_t *list, t_ls_flags *flags)
+void	ft_afilter(t_node *list, t_ls_fl *flags)
 {
-	node_t *current;
+	t_node *current;
 
 	current = list;
 	if (flags->l > 0)
 		ft_printf("total %d\n", ft_ls_blocksize(current));
-    while (current != NULL)
+	while (current != NULL)
 	{
 		if (current->name && flags->a > 0)
 			ft_print_list(current, flags);
 		else if (current->name && flags->a == 0 && current->name[0] != '.')
 			ft_print_list(current, flags);
-        current = current->next;
+		current = current->next;
 	}
 }
 
-void	ft_get_details(node_t *current, struct stat *details)
+void	ft_get_details(t_node *current, struct stat *details)
 {
 	struct passwd	*pwd;
 	struct group	*grp;
@@ -65,9 +63,9 @@ char	*ft_checkpath(char *path)
 	return (path);
 }
 
-void	ft_ls_tolist(DIR *dir, node_t *files, t_ls_flags *flags, char *path)
+void	ft_ls_tolist(DIR *dir, t_node *files, t_ls_fl *flags, char *path)
 {
-	node_t 			*current;
+	t_node			*current;
 	struct dirent	*sd;
 	struct stat		*details;
 
@@ -84,12 +82,10 @@ void	ft_ls_tolist(DIR *dir, node_t *files, t_ls_flags *flags, char *path)
 		if (ft_intlen(current->links) > flags->lenlink)
 			flags->lenlink = ft_intlen(current->links);
 		current->name = ft_strdup(sd->d_name);
-		//readlink(sd->d_name, current->symlink, details->st_size + 1);
-		current->next = malloc(sizeof(node_t));
+		current->next = malloc(sizeof(t_node));
 		current->next->prev = current;
 		current = current->next;
 	}
-	//ft_ls_sort(files, flags);
 	current->next = NULL;
 	ft_ls_sort(&files, flags);
 	ft_afilter(files, flags);

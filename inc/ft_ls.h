@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 12:14:06 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/13 08:00:20 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/13 08:45:47 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,20 @@
 # include <grp.h>
 # include <time.h>
 
-typedef struct	s_ls_flags
+typedef struct	s_ls_fl
 {
-	int		l;
-	int		dr;
-	int		a;
-	int		r;
-	int		t;
-	int		lenbyte;
-	int		lenlink;
-}				t_ls_flags;
+	int			l;
+	int			dr;
+	int			a;
+	int			r;
+	int			t;
+	int			lenbyte;
+	int			lenlink;
+}				t_ls_fl;
 
-typedef struct node
+typedef struct	s_no
 {
-    char		*name;
+	char		*name;
 	unsigned	mode;
 	int			links;
 	char		*owner;
@@ -46,25 +46,23 @@ typedef struct node
 	long long	bytes;
 	int			block;
 	char		*symlink;
-    struct node *next;
-	struct node *prev;
-} 				node_t;
+	struct s_no	*next;
+	struct s_no	*prev;
+}				t_node;
 
-int		ft_isflag(t_ls_flags *flags);
-int		ft_ls_blocksize(node_t *current);
-void	ft_ls_direct(t_ls_flags *flags, char *dirname, int argc);
-void	ft_ls_finit(t_ls_flags *flags);
-int		ft_ls_isfile(char *dirname);
-int		ft_ls_exit(int err, char *var);
-void	ft_ls_l(node_t *current, t_ls_flags *flags);
-void	ft_ls_recursive(t_ls_flags *flags, char *path);
-void	ft_ls_sort(node_t **current, t_ls_flags *flags);
-void	ft_ls_sort_name(node_t **current);
-void	ft_ls_sort_date(node_t **current);
-void	ft_ls_sort_rdate(node_t **current);
-void	ft_ls_sort_rev(node_t **current);
-void    ft_ls_sort_switch(node_t **start, node_t *node);
-void	ft_ls_tolist(DIR *dir, node_t *files, t_ls_flags *flags, char *path);
-// void	ft_ls_a(DIR *dir, struct dirent *sd);
+int				ft_isflag(t_ls_fl *flags);
+int				ft_ls_blocksize(t_node *current);
+void			ft_ls_direct(t_ls_fl *flags, char *dirname, int argc);
+void			ft_ls_finit(t_ls_fl *flags);
+int				ft_ls_exit(int err, char *var);
+void			ft_ls_l(t_node *current, t_ls_fl *flags);
+void			ft_ls_recursive(t_ls_fl *flags, char *path);
+void			ft_ls_sort(t_node **current, t_ls_fl *flags);
+void			ft_ls_sort_name(t_node **current);
+void			ft_ls_sort_date(t_node **current);
+void			ft_ls_sort_rdate(t_node **current);
+void			ft_ls_sort_rev(t_node **current);
+void			ft_ls_sort_switch(t_node **start, t_node *node);
+void			ft_ls_tolist(DIR *dir, t_node *file, t_ls_fl *fl, char *pa);
 
 #endif

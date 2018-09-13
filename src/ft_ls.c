@@ -6,20 +6,20 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 12:24:31 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/13 08:00:42 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/13 08:42:26 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-void	ft_ls_flagorder(t_ls_flags *flags, char *path)
+void			ft_ls_flagorder(t_ls_fl *flags, char *path)
 {
 	DIR				*dir;
-	node_t 			*files;
-	
-	files = malloc(sizeof(node_t));
+	t_node			*files;
+
+	files = malloc(sizeof(t_node));
 	if (files == NULL)
-    	exit(1);
+		exit(1);
 	if (flags->dr > 0)
 	{
 		dir = opendir("./");
@@ -35,7 +35,7 @@ void	ft_ls_flagorder(t_ls_flags *flags, char *path)
 	closedir(dir);
 }
 
-t_ls_flags		*ft_ls_hflags(char *args, t_ls_flags *flags)
+t_ls_fl		*ft_ls_hflags(char *args, t_ls_fl *flags)
 {
 	int				i;
 
@@ -63,13 +63,13 @@ t_ls_flags		*ft_ls_hflags(char *args, t_ls_flags *flags)
 	return (flags);
 }
 
-int     main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
-	t_ls_flags		*flags;
+	t_ls_fl		*flags;
 	int				i;
 
 	i = 1;
-	flags = malloc(sizeof(t_ls_flags) + 16);
+	flags = malloc(sizeof(t_ls_fl) + 16);
 	ft_ls_finit(flags);
 	if (argc > 1)
 	{
@@ -87,12 +87,12 @@ int     main(int argc, char **argv)
 			if (flags->dr > 0)
 				while (i < argc)
 					ft_ls_flagorder(flags, argv[i++]);
-			else while (i < argc)
-			{
-				ft_ls_direct(flags, argv[i++], argc);
-				if (i < argc)
-					ft_putchar('\n');
-			}
+				else while (i < argc)
+				{
+					ft_ls_direct(flags, argv[i++], argc);
+					if (i < argc)
+						ft_putchar('\n');
+				}
 		}
 	}
 	else
