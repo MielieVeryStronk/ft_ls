@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 12:33:36 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/14 13:52:51 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/14 16:29:30 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,15 @@ void	ft_ls_tolist(DIR *dir, t_node *files, t_ls_fl *flags, char *path)
 	struct dirent	*sd;
 	struct stat		*details;
 	char			*temp;
-	char			*temp2;
 
 	current = files;
 	current->prev = NULL;
 	if (!(details = malloc(sizeof(struct stat))))
 		ft_ls_exit(3, NULL);
+	path = ft_ls_checkpath(path);
 	while ((sd = readdir(dir)) != NULL)
 	{
-		path = ft_ls_checkpath(path);
 		temp = ft_strjoin(path, sd->d_name);
-		temp2 = path;
-		free(path);
-		path = ft_strdup(temp2);
-		free(temp2);
 		if (flags->file == 0)
 			stat(temp, details);
 		else

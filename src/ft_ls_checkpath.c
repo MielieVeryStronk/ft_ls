@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/13 11:59:16 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/14 13:50:19 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/14 16:23:55 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_ls_checkpath(char *path)
 
 	new = NULL;
 	temp = NULL;
-	if (path[0] != '/' && path[1] != '/')
+	if (path[0] != '.' && path[1] != '/')
 	{
 		new = ft_strjoin("./", path);
 	}
