@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 12:24:31 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/13 16:23:25 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/14 10:08:25 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void			ft_ls_flagorder(t_ls_fl *flags, char *path)
 
 	if (!(files = malloc(sizeof(t_node))))
 		ft_ls_exit(3, NULL);
-	if (files == NULL)
-		exit(1);
 	if (flags->dr > 0)
 	{
 		dir = opendir("./");
@@ -70,7 +68,7 @@ int				main(int argc, char **argv)
 	int				i;
 
 	i = 1;
-	if (!(flags = malloc(sizeof(t_ls_fl) + 16)))
+	if (!(flags = malloc(sizeof(t_ls_fl))))
 		ft_ls_exit(3, NULL);
 	ft_ls_finit(flags);
 	if (argc > 1)
@@ -112,6 +110,5 @@ int				main(int argc, char **argv)
 	}
 	else
 		ft_ls_flagorder(flags, "."); // no flags no filenames
-	free(flags);
 	return (0);
 }

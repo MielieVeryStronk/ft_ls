@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 12:14:06 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/13 13:05:46 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/13 17:44:49 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ char			*ft_ls_checkpath(char *path);
 void			ft_ls_direct(t_ls_fl *flags, char *dirname, int argc);
 void			ft_ls_file(t_ls_fl *flags, char *filename);
 void			ft_ls_finit(t_ls_fl *flags);
+void			ft_ls_freelist(t_node *list);
 int				ft_ls_isdir(char *name);
 int				ft_ls_exit(int err, char *var);
 void			ft_ls_l(t_node *current, t_ls_fl *flags);

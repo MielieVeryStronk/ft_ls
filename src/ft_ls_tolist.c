@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 12:33:36 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/13 15:53:54 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/14 09:20:16 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_afilter(t_node *list, t_ls_fl *flags)
 
 	current = list;
 	if (flags->l > 0)
-		ft_printf("total %d\n", ft_ls_blocksize(current));
+		printf("total %d\n", ft_ls_blocksize(current));
 	while (current != NULL)
 	{
 		if (current->name && flags->a > 0)
@@ -27,6 +27,8 @@ void	ft_afilter(t_node *list, t_ls_fl *flags)
 			ft_print_list(current, flags);
 		current = current->next;
 	}
+		//printf("AFILTER");
+		//sleep(10);
 }
 
 void	ft_get_details(t_node *current, struct stat *details)
@@ -51,6 +53,7 @@ void	ft_ls_tolist(DIR *dir, t_node *files, t_ls_fl *flags, char *path)
 	t_node			*current;
 	struct dirent	*sd;
 	struct stat		*details;
+	char			*temp;
 
 	current = files;
 	current->prev = NULL;
@@ -59,10 +62,12 @@ void	ft_ls_tolist(DIR *dir, t_node *files, t_ls_fl *flags, char *path)
 	while ((sd = readdir(dir)) != NULL)
 	{
 		path = ft_ls_checkpath(path);
+		temp = ft_strjoin(path, sd->d_name);
 		if (flags->file == 0)
-			stat(ft_strjoin(path, sd->d_name), details);
+			stat(temp, details);
 		else
 			stat(path, details);
+		free(temp);
 		ft_get_details(current, details);
 		if (ft_intlen(current->bytes) > flags->lenbyte)
 			flags->lenbyte = ft_intlen(current->bytes);

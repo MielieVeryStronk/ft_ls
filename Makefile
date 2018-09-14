@@ -6,7 +6,7 @@
 #    By: enikel <enikel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/17 11:24:40 by enikel            #+#    #+#              #
-#    Updated: 2018/09/13 13:06:12 by enikel           ###   ########.fr        #
+#    Updated: 2018/09/13 18:11:02 by enikel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,13 +23,13 @@ LIB_DIR := lib
 SRC := ft_ls.c ft_ls_finit.c ft_ls_exit.c ft_ls_tolist.c ft_ls_l.c ft_ls_sort.c \
 ft_ls_recursive.c ft_isflag.c ft_ls_direct.c ft_ls_blocksize.c ft_ls_isdir.c \
 ft_ls_sort_switch.c ft_ls_checkpath.c ft_ls_file.c ft_print_list.c \
-ft_ls_specific.c
+ft_ls_specific.c ft_ls_freelist.c
 
 OBJ := $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
 
 LIBFT_DIR := $(LIB_DIR)/libft
 
-CFLAGS := -Wall -Werror -Wextra
+CFLAGS := -g -O0 -Wall -Werror -Wextra
 
 CC := @gcc $(CFLAGS)
 
@@ -38,7 +38,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@make all -C $(LIBFT_DIR)/
 	@ar rcs $(NAME).a $(OBJ) $(LIBFT_DIR)/*.o
-	@$(CC) -g -O0 $(NAME).a -o $(NAME)
+	@$(CC) $(NAME).a -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(OBJ_DIR)
