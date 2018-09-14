@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 12:24:31 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/14 10:08:25 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/14 10:46:24 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int				main(int argc, char **argv)
 	int				i;
 
 	i = 1;
-	if (!(flags = malloc(sizeof(t_ls_fl))))
+	if (!(flags = ft_memalloc(sizeof(t_ls_fl))))
 		ft_ls_exit(3, NULL);
 	ft_ls_finit(flags);
 	if (argc > 1)
@@ -109,6 +109,8 @@ int				main(int argc, char **argv)
 		}
 	}
 	else
+	{
 		ft_ls_flagorder(flags, "."); // no flags no filenames
+	}
 	return (0);
 }

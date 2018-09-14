@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 12:33:36 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/14 09:20:16 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/14 13:52:51 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	ft_ls_tolist(DIR *dir, t_node *files, t_ls_fl *flags, char *path)
 	struct dirent	*sd;
 	struct stat		*details;
 	char			*temp;
+	char			*temp2;
 
 	current = files;
 	current->prev = NULL;
@@ -63,6 +64,10 @@ void	ft_ls_tolist(DIR *dir, t_node *files, t_ls_fl *flags, char *path)
 	{
 		path = ft_ls_checkpath(path);
 		temp = ft_strjoin(path, sd->d_name);
+		temp2 = path;
+		free(path);
+		path = ft_strdup(temp2);
+		free(temp2);
 		if (flags->file == 0)
 			stat(temp, details);
 		else
@@ -74,9 +79,11 @@ void	ft_ls_tolist(DIR *dir, t_node *files, t_ls_fl *flags, char *path)
 		if (ft_intlen(current->links) > flags->lenlink)
 			flags->lenlink = ft_intlen(current->links);
 		current->name = ft_strdup(sd->d_name);
-		current->next = malloc(sizeof(t_node));
+		current->next = ft_memalloc(sizeof(t_node));
 		current->next->prev = current;
 		current = current->next;
+		// printf("SLEEP1\n");
+		// sleep(5);
 	}
 	current->next = NULL;
 	if (flags->file == 0)
@@ -91,5 +98,7 @@ void	ft_ls_tolist(DIR *dir, t_node *files, t_ls_fl *flags, char *path)
 		path++;
 		ft_ls_specific(files, flags, path);
 	}
+	if (path)
+		free(path);
 	free(details);
 }
