@@ -6,13 +6,13 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/13 08:16:57 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/14 16:32:49 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/17 14:41:06 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-void	ft_ls_sort_name(t_node **current)
+void	ft_ls_sort_name(t_node **start)
 {
 	t_node	*curr;
 	t_node	*forward;
@@ -22,15 +22,15 @@ void	ft_ls_sort_name(t_node **current)
 	while (swap == 1)
 	{
 		swap = 0;
-		curr = *current;
+		curr = *start;
 		while (curr && curr->next)
 		{
 			forward = curr;
-			while (forward->name && forward->next->name)
+			while (forward && forward->next)
 			{
 				if (ft_strcmp(forward->name, forward->next->name) > 0)
 				{
-					ft_ls_sort_switch(current, forward);
+					ft_ls_sort_switch(start, forward);
 					swap = 1;
 				}
 				forward = forward->next;
@@ -40,7 +40,7 @@ void	ft_ls_sort_name(t_node **current)
 	}
 }
 
-void	ft_ls_sort_rev(t_node **current)
+void	ft_ls_sort_rev(t_node **start)
 {
 	t_node	*curr;
 	t_node	*forward;
@@ -50,15 +50,15 @@ void	ft_ls_sort_rev(t_node **current)
 	while (swap == 1)
 	{
 		swap = 0;
-		curr = *current;
+		curr = *start;
 		while (curr && curr->next)
 		{
 			forward = curr;
-			while (forward->name && forward->next->name)
+			while (forward && forward->next)
 			{
 				if (ft_strcmp(forward->name, forward->next->name) < 0)
 				{
-					ft_ls_sort_switch(current, forward);
+					ft_ls_sort_switch(start, forward);
 					swap = 1;
 				}
 				forward = forward->next;
@@ -68,7 +68,7 @@ void	ft_ls_sort_rev(t_node **current)
 	}
 }
 
-void	ft_ls_sort_date(t_node **current)
+void	ft_ls_sort_date(t_node **start)
 {
 	t_node	*curr;
 	t_node	*forward;
@@ -78,15 +78,15 @@ void	ft_ls_sort_date(t_node **current)
 	while (swap == 1)
 	{
 		swap = 0;
-		curr = *current;
+		curr = *start;
 		while (curr && curr->next)
 		{
 			forward = curr;
-			while (forward->cdate && forward->next->cdate)
+			while (forward && forward->next)
 			{
 				if (forward->cdate > forward->next->cdate)
 				{
-					ft_ls_sort_switch(current, forward);
+					ft_ls_sort_switch(start, forward);
 					swap = 1;
 				}
 				forward = forward->next;
@@ -96,7 +96,7 @@ void	ft_ls_sort_date(t_node **current)
 	}
 }
 
-void	ft_ls_sort_rdate(t_node **current)
+void	ft_ls_sort_rdate(t_node **start)
 {
 	t_node	*curr;
 	t_node	*forward;
@@ -106,15 +106,15 @@ void	ft_ls_sort_rdate(t_node **current)
 	while (swap == 1)
 	{
 		swap = 0;
-		curr = *current;
+		curr = *start;
 		while (curr && curr->next)
 		{
 			forward = curr;
-			while (forward->cdate && forward->next->cdate)
+			while (forward && forward->next)
 			{
 				if (forward->cdate < forward->next->cdate)
 				{
-					ft_ls_sort_switch(current, forward);
+					ft_ls_sort_switch(start, forward);
 					swap = 1;
 				}
 				forward = forward->next;
@@ -124,14 +124,14 @@ void	ft_ls_sort_rdate(t_node **current)
 	}
 }
 
-void	ft_ls_sort(t_node **current, t_ls_fl *flags)
+void	ft_ls_sort(t_node **start, t_ls_fl *flags)
 {
-	if (ft_isflag(flags) == 0)
-		ft_ls_sort_name(current);
+	if (flags->t == 0 && flags->r == 0)
+		ft_ls_sort_name(start);
 	else if (flags->t > 0 && flags->r == 0)
-		ft_ls_sort_date(current);
+		ft_ls_sort_date(start);
 	else if (flags->r > 0 && flags->t == 0)
-		ft_ls_sort_rev(current);
+		ft_ls_sort_rev(start);
 	else if (flags->r > 0 && flags->t > 0)
-		ft_ls_sort_rdate(current);
+		ft_ls_sort_rdate(start);
 }

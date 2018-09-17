@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 14:48:22 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/14 07:53:50 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/17 10:44:17 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void	ft_print_mode(unsigned mode)
 		i++;
 	}
 	ft_putchar(' ');
+	if (str)
+		free(str);
 }
 
 void	ft_ls_l(t_node *current, t_ls_fl *flags)

@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 12:33:36 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/14 16:29:30 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/17 14:49:26 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void	ft_afilter(t_node *list, t_ls_fl *flags)
 			ft_print_list(current, flags);
 		current = current->next;
 	}
-		//printf("AFILTER");
-		//sleep(10);
 }
 
 void	ft_get_details(t_node *current, struct stat *details)
@@ -51,6 +49,7 @@ void	ft_get_details(t_node *current, struct stat *details)
 void	ft_ls_tolist(DIR *dir, t_node *files, t_ls_fl *flags, char *path)
 {
 	t_node			*current;
+	t_node			*prev;
 	struct dirent	*sd;
 	struct stat		*details;
 	char			*temp;
@@ -62,25 +61,32 @@ void	ft_ls_tolist(DIR *dir, t_node *files, t_ls_fl *flags, char *path)
 	path = ft_ls_checkpath(path);
 	while ((sd = readdir(dir)) != NULL)
 	{
+		if (!current)
+		{
+			current = ft_memalloc(sizeof(t_node));
+			current->prev = prev;
+			prev->next = current;
+		}
+		else
+			current->prev = NULL;
 		temp = ft_strjoin(path, sd->d_name);
 		if (flags->file == 0)
 			stat(temp, details);
 		else
 			stat(path, details);
-		free(temp);
+		if (temp)
+			free(temp);
 		ft_get_details(current, details);
 		if (ft_intlen(current->bytes) > flags->lenbyte)
 			flags->lenbyte = ft_intlen(current->bytes);
 		if (ft_intlen(current->links) > flags->lenlink)
 			flags->lenlink = ft_intlen(current->links);
 		current->name = ft_strdup(sd->d_name);
-		current->next = ft_memalloc(sizeof(t_node));
-		current->next->prev = current;
+		prev = current;
 		current = current->next;
-		// printf("SLEEP1\n");
-		// sleep(5);
 	}
-	current->next = NULL;
+	prev->next = NULL;
+	ft_ls_freelist(current);
 	if (flags->file == 0)
 	{
 		ft_ls_sort(&files, flags);
@@ -95,5 +101,6 @@ void	ft_ls_tolist(DIR *dir, t_node *files, t_ls_fl *flags, char *path)
 	}
 	if (path)
 		free(path);
-	free(details);
+	if (details)
+		free(details);
 }

@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 09:19:01 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/13 16:35:19 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/17 10:50:00 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	ft_ls_recursive(t_ls_fl *flags, char *path)
 	DIR				*dir;
 	struct dirent	*sd;
 	char			*repath;
+	char			*temp;
 
 	dir = opendir(path);
 	if (dir == NULL)
@@ -53,14 +54,20 @@ void	ft_ls_recursive(t_ls_fl *flags, char *path)
 	while ((sd = readdir(dir)) != NULL)
 	{
 		repath = ft_strjoin(path, "/");
-		if (ft_ls_isdir(ft_strjoin(repath, sd->d_name))
+		temp = ft_strjoin(repath, sd->d_name);
+		if (ft_ls_isdir(temp)
 		&& ft_ls_filter(sd->d_name, flags))
 		{
 			ft_putchar('\n');
-			repath = ft_strjoin(repath, sd->d_name);
-			ft_ls_direct(flags, repath, 4);
-			ft_ls_recursive(flags, repath);
+			free(temp);
+			temp = ft_strjoin(repath, sd->d_name);
+			ft_ls_direct(flags, temp, 4);
+			ft_ls_recursive(flags, temp);
 		}
+		if (repath)
+			free(repath);
+		if (temp)
+			free(temp);
 	}
 	closedir(dir);
 }

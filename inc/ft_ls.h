@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 12:14:06 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/14 16:46:22 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/17 09:42:28 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ typedef struct	s_no
 	unsigned	cdate;
 	long long	bytes;
 	int			block;
-	char		*symlink;
 	struct s_no	*next;
 	struct s_no	*prev;
 }				t_node;

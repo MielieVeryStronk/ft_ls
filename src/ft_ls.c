@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 12:24:31 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/14 16:54:54 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/17 14:26:04 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void			ft_ls_flagorder(t_ls_fl *flags, char *path)
 	if (dir == NULL)
 		ft_ls_exit(2, "./");
 	closedir(dir);
-	ft_ls_freelist(files);
+	if (files)
+		ft_ls_freelist(files);
 }
 
 t_ls_fl		*ft_ls_hflags(char *args, t_ls_fl *flags)
@@ -76,7 +77,11 @@ int				main(int argc, char **argv)
 	{
 		flags = ft_ls_hflags(argv[1], flags);
 		if (argv[1][0] == '-' && ft_isflag(flags) && argc == 2) // flags and no filenames
+		{
 			ft_ls_flagorder(flags, ".");
+			// printf("SLEEP\n");
+			// sleep(5);
+		}
 		else if (argv[1][0] == '-' && !ft_isflag(flags))
 			ft_ls_exit(2, argv[1]);
 		else if (argv[1][0] != '-') // no flags with filenames
@@ -110,11 +115,10 @@ int				main(int argc, char **argv)
 		}
 	}
 	else
-	{
 		ft_ls_flagorder(flags, "."); // no flags no filenames
-	}
-	free(flags);
-	printf("SLEEP\n");
-	sleep(10);
+	if (flags)
+		free(flags);
+	// printf("SLEEP\n");
+	// sleep(5);
 	return (0);
 }

@@ -6,29 +6,29 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/12 13:05:29 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/13 08:37:54 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/17 14:09:06 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
 
-void	ft_ls_sort_switch(t_node **start, t_node *node)
+void	ft_ls_sort_switch(t_node **start, t_node *current)
 {
 	t_node *prev;
 	t_node *next;
 	t_node *tmp;
 
-	prev = node->prev;
-	next = node->next;
+	prev = current->prev;
+	next = current->next;
 	tmp = next->next;
 	if (!prev)
 		*start = next;
 	else
 		prev->next = next;
 	if (tmp)
-		tmp->prev = node;
-	next->next = node;
+		tmp->prev = current;
+	next->next = current;
 	next->prev = prev;
-	node->prev = next;
-	node->next = tmp;
+	current->prev = next;
+	current->next = tmp;
 }
