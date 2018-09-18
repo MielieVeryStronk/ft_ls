@@ -6,39 +6,11 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/13 08:16:57 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/17 14:41:06 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/18 08:32:47 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/ft_ls.h"
-
-void	ft_ls_sort_name(t_node **start)
-{
-	t_node	*curr;
-	t_node	*forward;
-	int		swap;
-
-	swap = 1;
-	while (swap == 1)
-	{
-		swap = 0;
-		curr = *start;
-		while (curr && curr->next)
-		{
-			forward = curr;
-			while (forward && forward->next)
-			{
-				if (ft_strcmp(forward->name, forward->next->name) > 0)
-				{
-					ft_ls_sort_switch(start, forward);
-					swap = 1;
-				}
-				forward = forward->next;
-			}
-			curr = curr->next;
-		}
-	}
-}
 
 void	ft_ls_sort_rev(t_node **start)
 {

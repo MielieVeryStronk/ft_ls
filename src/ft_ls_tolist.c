@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 12:33:36 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/17 14:49:26 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/18 08:33:42 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ void	ft_ls_tolist(DIR *dir, t_node *files, t_ls_fl *flags, char *path)
 	{
 		ft_ls_sort(&files, flags);
 		ft_afilter(files, flags);
+		if (flags->r > 0 || flags->t > 0)
+			ft_ls_sort_name(&files);
 	}
 	else
 	{

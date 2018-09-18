@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 12:24:31 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/17 14:26:04 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/18 08:37:43 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,6 @@ int				main(int argc, char **argv)
 		free(flags);
 	// printf("SLEEP\n");
 	// sleep(5);
+	exit(0);
 	return (0);
 }
