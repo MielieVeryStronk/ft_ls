@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 12:33:36 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/18 08:33:42 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/18 16:19:53 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_afilter(t_node *list, t_ls_fl *flags)
 
 	current = list;
 	if (flags->l > 0)
-		printf("total %d\n", ft_ls_blocksize(current));
+		ft_printf("total %d\n", ft_ls_blocksize(current));
 	while (current != NULL)
 	{
 		if (current->name && flags->a > 0)

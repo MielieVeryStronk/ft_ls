@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/23 11:32:08 by enikel            #+#    #+#             */
-/*   Updated: 2018/08/28 09:35:35 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/18 16:28:56 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int		ft_arghandle(const char *format, va_list valist)
 {
 	t_arg	*arg;
+	int		rtemp;
 
 	arg = malloc(sizeof(t_arg) + 16);
 	ft_arginit(arg);
@@ -36,5 +37,7 @@ int		ft_arghandle(const char *format, va_list valist)
 		if (format[arg->index] != '\0')
 			arg->index++;
 	}
-	return (arg->ret);
+	rtemp = arg->ret;
+	free(arg);
+	return (rtemp);
 }

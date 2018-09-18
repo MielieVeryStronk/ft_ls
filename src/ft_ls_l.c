@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 14:48:22 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/17 10:44:17 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/18 16:19:53 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,12 @@ void	ft_ls_l(t_node *current, t_ls_fl *flags)
 			ft_putchar(' ');
 			space--;
 		}
-		printf("%d ", current->links);
+		ft_printf("%d ", current->links);
 	}
 	if (current->owner)
-		printf("%s  ", current->owner);
+		ft_printf("%s  ", current->owner);
 	if (current->group)
-		printf("%s  ", current->group);
+		ft_printf("%s  ", current->group);
 	if (current->bytes)
 		space = flags->lenbyte - ft_intlen(current->bytes);
 	while (space > 0)
@@ -109,7 +109,7 @@ void	ft_ls_l(t_node *current, t_ls_fl *flags)
 		ft_putchar(' ');
 		space--;
 	}
-	printf("%lld ", current->bytes);
+	ft_printf("%lld ", current->bytes);
 	if (current->date)
 		ft_print_time(current->date);
 }
