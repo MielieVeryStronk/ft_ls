@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 12:33:36 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/19 15:23:25 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/19 16:42:17 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,15 @@ void	ft_stat_d(struct stat *details, char *path, struct dirent *sd, int f)
 	if (f == 0)
 		stat(temp, details);
 	else
-		stat(path, details);
+	{
+		if (path[ft_strlen(path) - 1] == '/')
+			path[ft_strlen(path) - 1] = '\0';
+		stat(path, details); // WHAT
+	}
 	if (temp)
 		free(temp);
+	if (path)
+		free(path);
 }
 
 void	ft_ls_tolist(DIR *dir, t_node *files, t_ls_fl *flags, char *path)
@@ -94,10 +100,11 @@ void	ft_ls_tolist(DIR *dir, t_node *files, t_ls_fl *flags, char *path)
 	if (!(details = malloc(sizeof(struct stat))))
 		ft_ls_exit(3, NULL);
 	path = ft_ls_checkpath(path);
+
 	while ((sd = readdir(dir)) != NULL)
 	{
 		ft_add_new(&current, &prev);
-		ft_stat_d(details, path, sd, flags->file);
+		ft_stat_d(details, ft_strdup(path), sd, flags->file);
 		ft_get_details(current, details, flags);
 		current->name = ft_strdup(sd->d_name);
 		prev = current;
