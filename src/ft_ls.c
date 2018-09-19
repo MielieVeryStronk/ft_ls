@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 12:24:31 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/18 16:19:53 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/19 08:58:03 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,10 @@
 void			ft_ls_flagorder(t_ls_fl *flags, char *path)
 {
 	DIR				*dir;
-	t_node			*files = NULL;
+	t_node			*files;
 
+	if (!(files = ft_memalloc(sizeof(t_node))))
+		ft_ls_exit(3, NULL);
 	if (flags->dr > 0)
 	{
 		dir = opendir("./");
@@ -34,7 +36,7 @@ void			ft_ls_flagorder(t_ls_fl *flags, char *path)
 		ft_ls_freelist(files);
 }
 
-t_ls_fl		*ft_ls_hflags(char *args, t_ls_fl *flags)
+t_ls_fl			*ft_ls_hflags(char *args, t_ls_fl *flags)
 {
 	int				i;
 
@@ -62,62 +64,64 @@ t_ls_fl		*ft_ls_hflags(char *args, t_ls_fl *flags)
 	return (flags);
 }
 
+void			ft_flagdir(int argc, t_ls_fl *flags, char **argv)
+{
+	int		i;
+
+	i = 2;
+	if (flags->dr > 0)
+	{
+		while (i < argc)
+		{
+			ft_ls_direct(flags, argv[i], 4);
+			ft_ls_flagorder(flags, argv[i++]);
+		}
+	}
+		else while (i < argc)
+		{
+			if (ft_ls_isdir(argv[i]))
+				ft_ls_direct(flags, argv[i++], argc);
+			else
+				ft_ls_file(flags, argv[i++]);
+			if (i < argc)
+				ft_putchar('\n');
+		}
+}
+
+void			ft_ls_args(char **argv, t_ls_fl *flags, int argc, int i)
+{
+	flags = ft_ls_hflags(argv[1], flags);
+	if (argv[1][0] == '-' && ft_isflag(flags) && argc == 2)
+		ft_ls_flagorder(flags, ".");
+	else if (argv[1][0] == '-' && !ft_isflag(flags))
+		ft_ls_exit(2, argv[1]);
+	else if (argv[1][0] != '-')
+		while (i < argc)
+		{
+			if (ft_ls_isdir(argv[i]))
+				ft_ls_direct(flags, argv[i++], argc);
+			else
+				ft_ls_file(flags, argv[i++]);
+		}
+	else if (argv[1][0] == '-' && argc > 2)
+		ft_flagdir(argc, flags, argv);
+}
+
 int				main(int argc, char **argv)
 {
 	t_ls_fl		*flags;
-	int				i;
+	int			i;
 
 	i = 1;
 	if (!(flags = ft_memalloc(sizeof(t_ls_fl))))
 		ft_ls_exit(3, NULL);
 	ft_ls_finit(flags);
 	if (argc > 1)
-	{
-		flags = ft_ls_hflags(argv[1], flags);
-		if (argv[1][0] == '-' && ft_isflag(flags) && argc == 2) // flags and no filenames
-		{
-			ft_ls_flagorder(flags, ".");
-			// ft_printf("SLEEP\n");
-			// sleep(5);
-		}
-		else if (argv[1][0] == '-' && !ft_isflag(flags))
-			ft_ls_exit(2, argv[1]);
-		else if (argv[1][0] != '-') // no flags with filenames
-			while (i < argc)
-			{
-				if (ft_ls_isdir(argv[i]))
-					ft_ls_direct(flags, argv[i++], argc);
-				else
-					ft_ls_file(flags, argv[i++]);
-			}
-		else if (argv[1][0] == '-' && argc > 2) // flags + filenames
-		{
-			i = 2;
-			if (flags->dr > 0)
-			{
-				while (i < argc)
-				{
-					ft_ls_direct(flags, argv[i], 4);
-					ft_ls_flagorder(flags, argv[i++]);
-				}
-			}
-			else while (i < argc)
-			{
-				if (ft_ls_isdir(argv[i]))
-					ft_ls_direct(flags, argv[i++], argc);
-				else
-					ft_ls_file(flags, argv[i++]);
-				if (i < argc)
-					ft_putchar('\n');
-			}
-		}
-	}
+		ft_ls_args(argv, flags, argc, i);
 	else
-		ft_ls_flagorder(flags, "."); // no flags no filenames
+		ft_ls_flagorder(flags, ".");
 	if (flags)
 		free(flags);
-	//ft_printf("SLEEP\n");
-	//sleep(5);
 	exit(0);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 09:19:01 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/18 15:17:03 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/19 08:24:35 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,23 @@ void	ft_ls_repath(t_ls_fl *flags, char *path)
 	closedir(temp);
 }
 
+void	ft_ls_re(char *repath, char *temp, struct dirent *sd, t_ls_fl *flags)
+{
+	if (ft_ls_isdir(temp)
+	&& ft_ls_filter(sd->d_name, flags))
+	{
+		ft_putchar('\n');
+		free(temp);
+		temp = ft_strjoin(repath, sd->d_name);
+		ft_ls_direct(flags, temp, 4);
+		ft_ls_recursive(flags, temp);
+	}
+	if (repath)
+		free(repath);
+	if (temp)
+		free(temp);
+}
+
 void	ft_ls_recursive(t_ls_fl *flags, char *path)
 {
 	DIR				*dir;
@@ -55,19 +72,7 @@ void	ft_ls_recursive(t_ls_fl *flags, char *path)
 	{
 		repath = ft_strjoin(path, "/");
 		temp = ft_strjoin(repath, sd->d_name);
-		if (ft_ls_isdir(temp)
-		&& ft_ls_filter(sd->d_name, flags))
-		{
-			ft_putchar('\n');
-			free(temp);
-			temp = ft_strjoin(repath, sd->d_name);
-			ft_ls_direct(flags, temp, 4);
-			ft_ls_recursive(flags, temp);
-		}
-		if (repath)
-			free(repath);
-		if (temp)
-			free(temp);
+		ft_ls_re(repath, temp, sd, flags);
 	}
 	closedir(dir);
 }

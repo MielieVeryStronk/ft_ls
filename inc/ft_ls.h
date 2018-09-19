@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 12:14:06 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/18 08:35:01 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/19 11:41:09 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct	s_no
 	struct s_no	*prev;
 }				t_node;
 
+void			ft_add_new(t_node **current, t_node **prev);
 int				ft_isflag(t_ls_fl *flags);
 int				ft_ls_blocksize(t_node *current);
 char			*ft_ls_checkpath(char *path);
