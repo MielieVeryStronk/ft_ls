@@ -6,7 +6,7 @@
 #    By: enikel <enikel@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/07/17 11:24:40 by enikel            #+#    #+#              #
-#    Updated: 2018/09/19 11:41:18 by enikel           ###   ########.fr        #
+#    Updated: 2018/09/19 15:40:57 by enikel           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ OBJ := $(addprefix $(OBJ_DIR)/, $(SRC:%.c=%.o))
 
 LIBFT_DIR := $(LIB_DIR)/libft
 
-CFLAGS := -Wall -Werror -Wextra
+CFLAGS := -g -Wall -Werror -Wextra
 
 CC := @gcc $(CFLAGS)
 

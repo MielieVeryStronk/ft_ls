@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/17 12:24:31 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/19 08:58:03 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/19 15:56:46 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void			ft_flagdir(int argc, t_ls_fl *flags, char **argv)
 	int		i;
 
 	i = 2;
-	if (flags->dr > 0)
+	if (flags->dr > 0 && ft_ls_isdir(argv[i]))
 	{
 		while (i < argc)
 		{
@@ -83,7 +83,7 @@ void			ft_flagdir(int argc, t_ls_fl *flags, char **argv)
 				ft_ls_direct(flags, argv[i++], argc);
 			else
 				ft_ls_file(flags, argv[i++]);
-			if (i < argc)
+			if (i < argc && flags->l == 0)
 				ft_putchar('\n');
 		}
 }

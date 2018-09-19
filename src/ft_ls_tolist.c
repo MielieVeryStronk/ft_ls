@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 12:33:36 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/19 11:41:50 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/19 15:23:25 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,8 @@ void	ft_filefilter(t_node *files, t_ls_fl *flags, char *path)
 		path = ft_strrchr(path, '/');
 		path++;
 		ft_ls_specific(files, flags, path);
+		ft_putchar('\n');
 	}
-	if (path)
-		free(path);
 }
 
 void	ft_stat_d(struct stat *details, char *path, struct dirent *sd, int f)
@@ -108,4 +107,6 @@ void	ft_ls_tolist(DIR *dir, t_node *files, t_ls_fl *flags, char *path)
 		free(details);
 	ft_ls_freelist(current);
 	ft_filefilter(files, flags, path);
+	if (path)
+		free(path);
 }
