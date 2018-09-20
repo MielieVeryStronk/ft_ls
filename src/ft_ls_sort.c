@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/13 08:16:57 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/18 08:32:47 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/20 10:26:42 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_ls_sort_date(t_node **start)
 			forward = curr;
 			while (forward && forward->next)
 			{
-				if (forward->cdate > forward->next->cdate)
+				if (forward->cdate < forward->next->cdate)
 				{
 					ft_ls_sort_switch(start, forward);
 					swap = 1;
@@ -84,7 +84,7 @@ void	ft_ls_sort_rdate(t_node **start)
 			forward = curr;
 			while (forward && forward->next)
 			{
-				if (forward->cdate < forward->next->cdate)
+				if (forward->cdate > forward->next->cdate)
 				{
 					ft_ls_sort_switch(start, forward);
 					swap = 1;

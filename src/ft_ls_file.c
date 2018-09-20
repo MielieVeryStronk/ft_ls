@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/13 12:09:30 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/19 15:53:02 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/20 10:44:01 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,18 @@ int		ft_file_exists(char *filename)
 {
 	struct stat	buff;
 
-	return(stat(filename, &buff) == 0);
+	return (stat(filename, &buff) == 0);
+}
+
+void	ft_ls_freevar(char *temp, char *new, DIR *dir)
+{
+	if (temp)
+		free(temp);
+	if (new)
+		free(new);
+	free(dir->__dd_buf);
+	if (dir)
+		free(dir);
 }
 
 void	ft_ls_file(t_ls_fl *flags, char *filename)
@@ -44,11 +55,5 @@ void	ft_ls_file(t_ls_fl *flags, char *filename)
 		ft_ls_exit(2, filename);
 	flags->file = 0;
 	ft_ls_freelist(files);
-	if (temp)
-		free(temp);
-	if (new)
-		free(new);
-	free(dir->__dd_buf);
-	if (dir)
-		free(dir);
+	ft_ls_freevar(temp, new, dir);
 }

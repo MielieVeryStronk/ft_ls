@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/08/30 12:33:36 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/19 16:42:17 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/20 10:40:58 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	ft_filefilter(t_node *files, t_ls_fl *flags, char *path)
 		ft_afilter(files, flags);
 		if (flags->r > 0 || flags->t > 0)
 			ft_ls_sort_name(&files);
+		ft_putchar('\n');
 	}
 	else
 	{
@@ -65,7 +66,6 @@ void	ft_filefilter(t_node *files, t_ls_fl *flags, char *path)
 		path = ft_strrchr(path, '/');
 		path++;
 		ft_ls_specific(files, flags, path);
-		ft_putchar('\n');
 	}
 }
 
@@ -80,7 +80,7 @@ void	ft_stat_d(struct stat *details, char *path, struct dirent *sd, int f)
 	{
 		if (path[ft_strlen(path) - 1] == '/')
 			path[ft_strlen(path) - 1] = '\0';
-		stat(path, details); // WHAT
+		stat(path, details);
 	}
 	if (temp)
 		free(temp);
@@ -100,7 +100,6 @@ void	ft_ls_tolist(DIR *dir, t_node *files, t_ls_fl *flags, char *path)
 	if (!(details = malloc(sizeof(struct stat))))
 		ft_ls_exit(3, NULL);
 	path = ft_ls_checkpath(path);
-
 	while ((sd = readdir(dir)) != NULL)
 	{
 		ft_add_new(&current, &prev);

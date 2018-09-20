@@ -6,7 +6,7 @@
 /*   By: enikel <enikel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/05 09:19:01 by enikel            #+#    #+#             */
-/*   Updated: 2018/09/19 08:24:35 by enikel           ###   ########.fr       */
+/*   Updated: 2018/09/20 10:28:43 by enikel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,7 @@ void	ft_ls_repath(t_ls_fl *flags, char *path)
 	while ((sd = readdir(temp)) != NULL)
 	{
 		if (ft_ls_isdir(sd->d_name) && ft_ls_filter(sd->d_name, flags))
-		{
 			ft_ls_direct(flags, sd->d_name, 4);
-			ft_putchar('\n');
-		}
 	}
 	closedir(temp);
 }
@@ -44,7 +41,6 @@ void	ft_ls_re(char *repath, char *temp, struct dirent *sd, t_ls_fl *flags)
 	if (ft_ls_isdir(temp)
 	&& ft_ls_filter(sd->d_name, flags))
 	{
-		ft_putchar('\n');
 		free(temp);
 		temp = ft_strjoin(repath, sd->d_name);
 		ft_ls_direct(flags, temp, 4);
